@@ -1,0 +1,92 @@
+//   Student.h
+
+
+#ifndef INC_02_SELECTION_SORT_USING_TEMPLATE_STUDENT_H
+#define INC_02_SELECTION_SORT_USING_TEMPLATE_STUDENT_H
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+
+struct Student{
+
+    string name;
+    int score;
+
+    // 重载小于运算法,定义Student之间的比较方式
+    // 如果分数相等，则按照名字的字母序排序
+    // 如果分数不等，则分数高的靠前
+    bool operator<(const Student& otherStudent){
+        return score != otherStudent.score ?  //又来
+               score > otherStudent.score : name < otherStudent.name;   // 拿名字排序
+    }
+
+    // 重载<<符号, 定义Student实例的打印输出方式
+    // * 很多同学看到这里的C++语法, 头就大了, 甚至还有同学表示要重新学习C++语言
+    // * 对于这个课程, 大可不必。C++语言并不是这个课程的重点,
+    // * 大家也完全可以使用自己的方式书写代码, 最终只要能够打印出结果就好了, 比如设置一个成员函数, 叫做show()...
+
+    friend ostream& operator<<(ostream &os, const Student &student){
+
+        os<<"Student: "<<student.name<<" "<<student.score<<endl;
+        return os;
+    }
+};
+
+#endif //INC_02_SELECTION_SORT_USING_TEMPLATE_STUDENT_H
+
+//   main.cpp
+
+#include <iostream>
+#include "Student.h"
+
+using namespace std;
+
+template<typename T>    //模板函数
+void selectionSort(T arr[], int n){
+
+    for(int i = 0 ; i < n ; i ++){
+
+        int minIndex = i;
+        for( int j = i + 1 ; j < n ; j ++ )
+            if( arr[j] < arr[minIndex] )
+                minIndex = j;
+
+        swap( arr[i] , arr[minIndex] );
+    }
+}
+
+int main() {
+
+    // 测试模板函数，传入整型数组
+    int a[10] = {10,9,8,7,6,5,4,3,2,1};
+    selectionSort( a , 10 );
+    for( int i = 0 ; i < 10 ; i ++ )
+        cout<<a[i]<<" ";
+    cout<<endl;
+
+    // 测试模板函数，传入浮点数数组
+    float b[4] = {4.4,3.3,2.2,1.1};
+    selectionSort(b,4);
+    for( int i = 0 ; i < 4 ; i ++ )
+        cout<<b[i]<<" ";
+    cout<<endl;
+
+    // 测试模板函数，传入字符串数组
+    string c[4] = {"D","C","B","A"};
+    selectionSort(c,4);
+    for( int i = 0 ; i < 4 ; i ++ )
+        cout<<c[i]<<" ";
+    cout<<endl;
+
+    // 测试模板函数，传入自定义结构体Student数组
+    Student d[4] = { {"D",90} , {"C",100} , {"B",95} , {"A",95} };
+    selectionSort(d,4);
+    for( int i = 0 ; i < 4 ; i ++ )
+        cout<<d[i];
+    cout<<endl;
+
+    return 0;
+}
