@@ -1,0 +1,35 @@
+#include<iostream>
+#include<algorithm>
+#include<functional>
+#include<string>
+void Print(int & temp)
+{
+	cout<<temp<<" ";
+}
+int main()
+{
+	int Array[] = {4,2,3,6,1,8,10};
+    int Length = sizeof(Array)/sizeof(Array[0]);
+	sort(Array,Array+Length,greater<int>());//从大到小
+	for_each(Array,Array+Length,Print);
+	system("pause");
+	return 0;
+}
+using namespace std;
+void Print(int & temp)
+{
+	cout<<temp<<" ";
+}
+int main()
+{
+	int Array[] = {4,2,3,6,1,8,10};
+    int Length = sizeof(Array)/sizeof(Array[0]);
+	sort(Array,Array+Length,less<int>());//从小到大
+	for_each(Array,Array+Length,Print);
+	system("pause");
+	return 0;
+}
+
+
+
+
